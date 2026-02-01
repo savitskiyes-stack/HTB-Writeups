@@ -1,5 +1,5 @@
 # HTB-Writeups
-Мои отчёты по penetration testing на Hack The Box. Навыки: Nmap, Burp Suite, etc.
+Мои отчёты по penetration testing на Hack The Box. Навыки: Nmap, Burp Suite, Metasploit, SQLmap, SQL, Accunetix, Awk etc.
 Отчеты и решения по машинам HTB
 
 Это репозиторий, в котором я собираю свои отчеты, заметки и скрипты, связанные с прохождением машин на платформе Hack The Box (HTB). 
