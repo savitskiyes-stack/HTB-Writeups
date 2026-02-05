@@ -103,6 +103,32 @@ Nmap - Категория уязвимостей
 
 
 
+Обновить базу данных скриптов NSE
+SavitskiyES@htb[/htb]$ sudo nmap --script-updatedb
+
+
+
+
+Найти скрипты на системе
+SavitskiyES@htb[/htb]$ find / -type f -name ftp* 2>/dev/null | grep scripts
+
+
+
+
+
+
+Сканирование FTP сервера:
+SavitskiyES@htb[/htb]$ sudo nmap -sV -p21 -sC -A 10.129.14.136
+
+
+
+
+
+
+
+
+
+
 
 
 
