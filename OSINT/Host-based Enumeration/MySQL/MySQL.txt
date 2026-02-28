@@ -244,7 +244,18 @@ mysql> select host, unique_users from host_summary;
 
 
 
-
++-----------------------------------+-----------------------------------+
+| Реляционные                       | Нереляционные                     |
++-----------------------------------+-----------------------------------+
+| PostgreSQL                        | MongoDB                           |
+| MySQL                             | Redis                             |
+| MariaDB                           | Cassandra                         |
+| Microsoft SQL Server              | DynamoDB                          |
+| Oracle Database                   | Elasticsearch                     |
+| SQLite                            | CouchDB                           |
+| Amazon Aurora                     | Neo4j                             |
+| Snowflake                         | Couchbase                         |
++-----------------------------------+-----------------------------------+
 
 
 
