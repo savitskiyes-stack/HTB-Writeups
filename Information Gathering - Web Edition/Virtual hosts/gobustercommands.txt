@@ -1,0 +1,20 @@
+┌─[eu-academy-3]─[10.10.15.236]─[htb-ac-2182889@htb-ompjgvjcwb]─[/usr/share/seclists/Discovery/DNS]
+└──╼ [★]$ gobuster vhost -u http://154.57.164.71:30357 \
+  -w /usr/share/seclists/Discovery/DNS/combined_subdomains.txt \
+  --append-domain \
+  --domain inlanefreight.htb \
+  -t 100 \
+  -k
+
+
+Разбор - gobuster vhost -u http://154.57.164.71:30357 - на каком ip и порту живет нужный vhost
+ 
+ -w /usr/share/seclists/Discovery/DNS/combined_subdomains.txt - какой словарь юзаем (полный путь)
+
+--append-domain значит что мы включаем добавление хоста к каждому слову из словаря
+
+--domain inlanefreight.htb - указываем какой домен добавлять 
+
+-t 100 - кол-во потоков 
+
+-k - игнор ошибок сертефикатов ssl/tls 
