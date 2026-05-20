@@ -1,0 +1,39 @@
+URI openid-configuration является частью протокола OpenID Connect Discovery, уровня идентификации, 
+построенного поверх протокола OAuth 2.0. Когда клиентское приложение хочет использовать 
+OpenID Connect для аутентификации, оно может получить конфигурацию поставщика OpenID Connect, 
+обратившись к https://example.com/.well-known/openid-configurationконечной точке. 
+Эта конечная точка возвращает JSON-документ, содержащий метаданные о конечных точках поставщика, 
+поддерживаемых методах аутентификации, выдаче токенов и многом другом:
+
+
+{
+  "issuer": "https://example.com",
+  "authorization_endpoint": "https://example.com/oauth2/authorize",
+  "token_endpoint": "https://example.com/oauth2/token",
+  "userinfo_endpoint": "https://example.com/oauth2/userinfo",
+  "jwks_uri": "https://example.com/oauth2/jwks",
+  "response_types_supported": ["code", "token", "id_token"],
+  "subject_types_supported": ["public"],
+  "id_token_signing_alg_values_supported": ["RS256"],
+  "scopes_supported": ["openid", "profile", "email"]
+}
+
+
+
+
+
+Информация, полученная с openid-configuration конечной точки, предоставляет множество возможностей для исследования:
+
+Endpoint Discovery:
+
+Authorization Endpoint: Определение URL-адреса для запросов авторизации пользователя.
+
+Token Endpoint: Определение URL-адреса, по которому выдаются токены.
+
+Userinfo EndpointОпределение местоположения конечной точки, предоставляющей информацию о пользователе.
+
+JWKS URI: Здесь jwks_uriотображается JSON Web Key Set( JWKS), содержащая подробную информацию о криптографических ключах, используемых сервером.
+
+Supported Scopes and Response TypesПонимание того, какие области действия и типы ответов поддерживаются, помогает определить функциональность и ограничения реализации OpenID Connect.
+
+Algorithm DetailsИнформация о поддерживаемых алгоритмах подписи может иметь решающее значение для понимания применяемых мер безопасности.
