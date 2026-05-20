@@ -1,0 +1,67 @@
+1. Определите версию Apache, работающую на app.inlanefreight.local в целевой системе. (Формат: 0.0.0)
+
+Добавить домен в hosts:
+
+sudo nano /etc/hosts
+Добавить строку:
+text10.129.125.110    app.inlanefreight.local
+
+После этого запустить Nikto по домену:
+
+Bashnikto -h app.inlanefreight.local -Tuning b
+
+
+[eu-academy-3]─[10.10.15.236]─[htb-ac-2182889@htb-2zfzd4imum]─[~]
+└──╼ [★]$ nikto -h app.inlanefreight.local -Tuning b
+
+Nikto v2.5.0
+
+
+
+Target IP: 10.129.125.110
+Target Hostname: app.inlanefreight.local
+Target Port: 80
+Start Time: 2026-05-20 12:41:34 (GMT-5)
+
+
+
+Server: Apache/2.4.41 (Ubuntu)
+
+
+
+2. Какая CMS используется в приложении app.inlanefreight.local на целевой системе? Ответьте, указав только название, например, WordPress.
+
+
+В ответе структура указывает на Joomla 
+
+по характерным путям в robots.txt:
+
+/administrator/
+/components/
+/modules/
+/plugins/
+/libraries/
+/includes/
+
+см. скриншот 3
+
+
+
+3. На какой операционной системе запущен веб-сервер dev.inlanefreight.local в целевой системе? Укажите только его название, например, Debian.
+
+
+sudo nano /etc/hosts/
+
+добавляем dev.inlanefreight.local и его ip чтобы сделать на него следующий запрос:
+
+curl -I -H "Host: dev.inlanefreight.local" http://10.129.1.15
+HTTP/1.1 200 OK
+Date: Wed, 20 May 2026 20:28:49 GMT
+Server: Apache/2.4.41 (Ubuntu)
+Set-Cookie: 02a93f6429c54209e06c64b77be2180d=a8lvmmcs2r2ign0bdpf86dkt35; path=/; HttpOnly
+Expires: Wed, 17 Aug 2005 00:00:00 GMT
+Last-Modified: Wed, 20 May 2026 20:28:55 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Content-Type: text/html; charset=utf-8
+
