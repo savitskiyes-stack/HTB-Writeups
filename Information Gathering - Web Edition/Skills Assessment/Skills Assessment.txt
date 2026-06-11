@@ -1,0 +1,64 @@
+Skills Assessment
+
+
+
+└──╼ [★]$ whois inlanefreight.com
+   Domain Name: INLANEFREIGHT.COM
+   Registry Domain ID: 2420436757_DOMAIN_COM-VRSN
+   Registrar: Amazon Registrar, Inc.
+   Registrar IANA ID: 468
+   Name Server: NS-1303.AWSDNS-34.ORG
+   Name Server: NS-1580.AWSDNS-05.CO.UK
+   Name Server: NS-161.AWSDNS-20.COM
+   Name Server: NS-671.AWSDNS-19.NET
+
+
+
+
+
+gobuster vhost -u http://154.57.164.83:31577 \
+  -w /usr/share/seclists/Discovery/DNS/combined_subdomains.txt \
+  --append-domain \                                             
+  --domain inlanefreight.htb \                                             
+  -t 100 \                    
+  -k
+
+Found: web1337.inlanefreight.htb Status: 200 [Size: 104]
+
+
+
+
+
+gobuster dir -u http://web1337.inlanefreight.htb:31577 -w /usr/share/seclists/Discovery/Web-Content/common.txt
+/index.html           (Status: 200) [Size: 104]
+/robots.txt           (Status: 200) [Size: 99]
+
+
+
+
+┌─[eu-academy-3]─[10.10.15.28]─[htb-ac-2182889@htb-jiahnulmjc]─[~]
+└──╼ [★]$ curl http://web1337.inlanefreight.htb:31577/robots.txt
+User-agent: *
+Allow: /index.html
+Allow: /index-2.html
+Allow: /index-3.html
+Disallow: /admin_h1dd3n
+
+
+
+What is the IANA ID of the registrar of the inlanefreight.com domain?
+468
+
+What http server software is powering the inlanefreight.htb site on the target system? Respond with the name of the software, not the version, e.g., Apache.
+Nginx
+
+
+What is the API key in the hidden admin directory that you have discovered on the target system?
+e963d863ee0e82ba7080fbf558ca0d3f
+
+
+After crawling the inlanefreight.htb domain on the target system, what is the email address you have found? Respond with the full email, e.g., mail@inlanefreight.htb.
+1337testing@inlanefreight.htb
+
+What is the API key the inlanefreight.htb developers will be changing too?
+ba988b835be4aa97d068941dc852ff33
