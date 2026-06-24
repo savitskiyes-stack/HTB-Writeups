@@ -1,0 +1,287 @@
+Полезные команды (СЕТИ)
+sudo openvpn user.ovpn  (подключение VPN на машине)
+ifconfig (tunадаптер, если успешно подключились к VPN)
+netstat -rn (мы увидим сети, доступные через VPN)
+
+Основные наиболее известные порты и протоколы работающие на них
+
+Порт(ы)	Протокол
+20/ 21(TCP)	FTP
+22(ТКП)  	SSH
+23(ТКП) 	Telnet
+25(ТКП) 	SMTP
+80(ТКП) 	HTTP
+161(TCP/UDP)	SNMP
+389(TCP/UDP)	LDAP
+443(ТКП)	SSL/ TLS( HTTPS)
+445(ТКП)	SMB
+3389(ТКП)	RDP
+
+Шпаргалки по портам:
+https://www.stationx.net/common-ports-cheat-sheet/
+
+
+Команда для GitHub
+
+git config --global user.name "Твоё имя"
+git config --global user.email "твой.email@example.com"
+git clone https://github.com/твой_аккаунт/имя_репозитория.git  (Сделать клон в папке где ты находишься)
+git status (статус)
+git add .      (Добавь все новые и изменённые файлы)
+git commit -m  (Зафиксируй\закоммить изменения - "Добавил новые учебные материалы и скрипты")
+git push origin main (Отправь изменения в удалённый репозиторий\запуш)
+
+
+
+
+Netcat
+
+Netcat , ncat или nc, — это отличная сетевая утилита для взаимодействия с портами TCP/UDP
+ Основное её назначение — подключение к оболочкам
+
+Пример:
+SavitskiyES@htb[/htb]$ netcat 10.10.10.10 22 (утилита, ip хоста, порт)
+nc -nv 10.129.42.190 22
+
+Аналог для Windows - PowerCat
+Аналог утилиты - socat
+
+
+Мультиплексор терминал Tmux
+sudo apt install tmux -y
+ctrl + b (это префикс)
+ctrl + c (создать новое окно)
+ctrl + b и отдельно нажать номер окна например цифру 1 (переключение между окнами)
+ctrl + b и с зажатым shift поставить двойные ковычки или процент (разделение окна по горизонтали или вертикали)
+
+Vim
+Хороший текстовый редактор для работы с кодом
+Командование	Описание
+i       редактировать файл
+x	Вырезанный персонаж
+dw	Вырезать слово
+dd	Вырезать всю линию
+yw	Скопировать слово
+yy	Скопировать всю строку
+p	Вставить
+:1	Перейдите к строке номер 1.
+:w	Записать файл, сохранить
+:q	Покидать
+:q!	Выйти, не сохранив изменения
+:wq	Пишите и бросайте
+Nmap
+-sC (что Nmapдля получения более подробной информации следует использовать скрипты)
+-sV (указывает Nmapна необходимость выполнения сканирования версий)
+-p (указывает Nmap, что мы хотим просканировать все 65 535 TCP-портов)
+Пример полного запроса:
+sudo nmap -sS -sU -sV -sC -T3 -Pn --top-ports 1000 -oN fast_stealth.txt 10.129.202.20  (top-1000 портов + все UDP)
+nmap -sV -sC -p- 10.129.42.253
+nmap -sV --script=banner <target> (Nmap попытается получить баннеры через скрипты или вручную nmap -g)
+nmap --script <script name> -p<port> <host>    (Запуск скрипта)
+nmap -sV --open -oA nibbles_initial_scan <ip address>
+nmap -p- --open -oA nibbles_full_tcp_scan 10.129.42.190 (выполнить полное сканирование TCP-портов)
+nmap -sV --script=http-enum -oA nibbles_nmap_http_enum 10.129.42.190 (скрипт http-enum для перечисления распространенных каталогов веб-приложений)
+nmap -sV --open -oA nibbles_initial_scan 10.129.200.170 (-oA nibbles_initial_scan сохраняет результаты сканирования в файлы. "-oA" значит "output in All formats" — создаст три файл. nibbles_initial_scan - имя файла)
+nmap -v -oG - 10.129.200.170 (выводит формат, допускающий grep, в стандартный вывод)
+Сканирование сервера MySQL
+sudo nmap 10.129.14.128 -sV -sC -p3306 --script mysql*
+MSSQL
+sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=sa,mssql.password=,mssql.instance-name=MSSQLSERVER -sV -p 1433 10.129.201.248
+Протоколы удалённого управления Linux:
+sudo nmap -sV -p 512,513,514 10.0.17.2
+
+
+
+
+
+-p (Стоит указывать конкретные порты если мы уже знаем что нам нужно чтобы снизить трафик и сэкономить время)
+-sV (перечисления служб по 1000 наиболее часто используемым портам по умолчанию)
+--open  (вернёт только открытые порты)
+nmap -v -oG - (сканирование без указания цели  выведем формат, допускающий grep, в стандартный вывод с помощью)
+примечание: Поскольку цель не указана, сканирование завершится неудачей, но покажет отсканированные порты
+-oA (вывести все форматы сканирования это включает в себя вывод в формате XML)
+nmap -g
+
+Результаты сканирования сохранились каждый отдельно в рабочем каталоге:
+SavitskiyES@htb[/htb]$ ls
+
+nibbles_initial_scan.gnmap  nibbles_initial_scan.nmap  nibbles_initial_scan.xml
+
+порт 3389 является портом по умолчанию для служб удаленного рабочего стола и является отличным показателем того, что целевая система работает под управлением Windows
+
+
+
+
+FTP
+Подключение к сервису работающему на протоколе ftp
+ftp -p 10.129.42.253
+get (можно загрузить файлы с удаленного хоста)
+
+SMB
+smbclient -N -L \\\\10.129.42.253 (-L Флаг указывает, что мы хотим получить список доступных общих папок на удаленном хосте, а флаг -N подавляет запрос пароля)
+smbclient \\\\10.129.42.253\\users (подключение к найденной папке как гость)
+smbclient -U bob \\\\10.129.42.254\\users (подключится как пользователь bob)
+
+некоторые версии SMB могут быть уязвимы для эксплойтов удаленного выполнения (RCE), таких как EternalBlue
+Интересные эксплойты:
+EternalBlue, EternalRomance, EternalSynergy, EternalChampion, ArchiTouch и SMBTouch. Потенциальные угрозы включают шелл-код, который выполняется сразу после эксплойтов Eternal, например, DoublePulsar
+
+SNMP
+snmpwalk -v 2c -c public 10.129.42.253 1.3.6.1.2.1.1.5.0
+snmpwalk -v 2c -c private  10.129.42.253
+https://github.com/trailofbits/onesixtyone (Словарь распространенных строк для перебора)
+Строки сообщества SNMP предоставляют информацию и статистику о маршрутизаторе или устройстве, помогая нам получить к нему доступ. Чтобы получить к устройству доступ, нужно знать строку сообщества. Это как пароль, который позволяет получить доступ к устройству. В старых версиях SNMP строка сообщества была открытым текстом, что означало, что можно было легко получить доступ к устройству, если только знали строку сообщества. Но в новой версии SNMP 3 добавили шифрование и аутентификацию, что означает, что теперь получить доступ к устройству сложнее
+
+
+
+GoBuster
+
+Перебор DNS виртуальных хостов и каталогов, перечисление общедоступных корзин AWS S3
+gobuster dir -u http://10.10.10.121/ -w /usr/share/seclists/Discovery/Web-Content/common.txt
+WordPress — наиболее распространенная CMS (система управления контентом) и обладает огромным потенциалом для атак. В данном случае, посещение [адрес http://10.10.10.121/wordpressсайта] в браузере показывает, что WordPress все еще находится в режиме установки, что позволит нам получить удаленное выполнение кода (RCE) на сервере
+Использовать флаг для указания режима DNS GoBuster, чтобы перечислить доступные поддомены заданного домена dns
+Клоинруем реп: https://github.com/danielmiessler/SecLists (содержит множество полезных списков для фаззинга и эксплуатации уязвимостей)
+Установить списки безопасности:
+git clone https://github.com/danielmiessler/seclists
+sudo apt install seclists -y
+Добавить в файл DNS-сервер, например, 1.1.1.1 /etc/resolv.conf
+Для примера берем домен inlanefreight.com
+gobuster dns -d inlanefreight.com -w /usr/share/SecLists/Discovery/DNS/namelist.txt (для htb)
+Актуальная версия:
+gobuster dns --domain 10.129.15.255 \
+  -w ~/Desktop/SecLists/Discovery/DNS/namelist.txt --wildcard --no-error -t 30
+gobuster vhost -u http://154.57.164.71:30357 \
+  -w /usr/share/seclists/Discovery/DNS/combined_subdomains.txt \
+  --append-domain \
+  --domain inlanefreight.htb \
+  -t 100 \
+  -k
+
+
+Разбор - gobuster vhost -u http://154.57.164.71:30357 - на каком ip и порту живет нужный vhost
+ 
+ -w /usr/share/seclists/Discovery/DNS/combined_subdomains.txt - какой словарь юзаем (полный путь)
+
+--append-domain значит что мы включаем добавление хоста к каждому слову из словаря
+
+--domain inlanefreight.htb - указываем какой домен добавлять 
+
+-t 100 - кол-во потоков 
+
+-k - игнор ошибок сертефикатов ssl/tls 
+
+
+
+
+SQL
++----------------------------------------------------+-------------------------------------------------------------+
+| Команда                                            | Описание                                                    |
++----------------------------------------------------+-------------------------------------------------------------+
+| mysql -u <user> -p<password> -h <IP address>       | Подключитесь к серверу MySQL. Между флагом '-p' и паролем не должно быть пробела |
+| show databases;                                    | Показать все базы данных                                    |
+| use <database>;                                    | Выберите одну из существующих баз данных                    |
+| show tables;                                       | Отобразить все доступные таблицы в выбранной базе данных    |
+| show columns from <table>;                         | Отобразить все столбцы в выбранной таблице                  |
+| select * from <table>;                             | Отобразите все данные в нужной таблице                      |
+| select * from <table> where <column> = "<string>"; | Отобразить строки, где значение столбца равно указанной строке |
++----------------------------------------------------+-------------------------------------------------------------+
+
+
+
+
+
+В ответе получаем результат отсканированных поддоменов для дальнейшего изучения
+
+СURL
+Пример команды:
+curl -IL https://www.inlanefreight.com (для получения информации из заголовков сервера из командной строки)
+Доп инструмент  https://github.com/RedSiege/EyeWitness
+Основные функции EyeWitness:
+
+Создание снимков экрана: EyeWitness может создавать снимки экрана целевых веб-приложений, что позволяет анализировать их веб-интерфейс, навигацию и возможные уязвимости.
+   2. Идентификация учетных данных по умолчанию: EyeWitness может выявлять учетные данные по умолчанию, такие как пароли, которые не изменяются после установки или конфигурации веб-приложения.
+   3. Анализ веб-приложений: EyeWitness может анализировать веб-приложение, обнаруживать уязвимости, такие как:
+---Недостатки в безопасности (например, неполная аутентификация, отсутствие протоколов SSL/TLS).
+---Уязвимости в коде (например, SQL-инъекции, кросс-сайтовые скриптинг).
+---Недостатки в конфигурации (например, открытие портов FTP или SSH без пароля).
+   4. Сбор информации о веб-приложении: EyeWitness может собирать информацию о веб-приложении, такой как тип веб-сервера, версия веб-приложения, используемые фреймворки и библиотеки.
+
+
+Whatweb
+whatweb 10.10.10.121 (Веб-перечисление)
+whatweb --no-errors 10.10.10.0/24
+В HTML-комментарии может упоминатся директория например nibbleblog
+Проверка:
+whatweb http://10.129.42.190/nibbleblog
+
+http://10.129.42.190/nibbleblog [301 Moved Permanently] Apache[2.4.18], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.4.18 (Ubuntu)], IP[10.129.42.190], RedirectLocation[http://10.129.42.190/nibbleblog/], Title[301 Moved Permanently]
+http://10.129.42.190/nibbleblog/ [200 OK] Apache[2.4.18], Cookies[PHPSESSID], Country[RESERVED][ZZ], HTML5, HTTPServer[Ubuntu Linux][Apache/2.4.18 (Ubuntu)], IP[10.129.42.190], JQuery, MetaGenerator[Nibbleblog], PoweredBy[Nibbleblog], Script, Title[Nibbles - Yum yum]
+поиск в Google по запросу "nibbleblog exploit" выдаёт уязвимость загрузки файлов в Nibbleblog
+позволяет авторизованному загружать и выполнять произвольный PHP-код на веб-сервере
+Проверка интересных страниц и каталогов
+gobuster dir -u http://10.129.42.190/nibbleblog/ --wordlist /usr/share/seclists/Discovery/Web-Content/common.txt
+Проверка найденной страницы:
+curl http://10.129.42.190/nibbleblog/README
+Нашли config
+curl -s http://10.129.42.190/nibbleblog/content/private/config.xml | xmllint --format -
+https://github.com/digininja/CeWL Генератор списка слов для расхэширования паролей работает в паре с hashcat
+В README может быть версия nibbleblog которая поможет подобрать эксплойт действительный для конкретной версии
+
+
+Сертификаты:
+Просмотр https://10.10.10.121/сертификата позволяет увидеть указанные ниже данные, включая адрес электронной почты и название компании. Эти данные потенциально могут быть использованы для проведения фишинговой атаки, если это входит в рамки проверки.
+
+
+Robots.txt
+robots.txt файл, предназначенный для указания поисковым роботам, таким как Googlebot, к каким ресурсам можно и нельзя обращаться для индексации. Этот robots.txt файл может содержать ценную информацию, например, о местоположении закрытых файлов и страниц администрирования
+ctrl + U (чек исходного кода в браузере)
+ОТКРЫВАЯ СТРАНИЦЫ НАЙДЕННЫЕ С ПОМОЩЬЮ Gbuster И ПЕРЕМЕЩАЯСЬ ПО НИМ С ПОМОЩЬЮ ПРОСМОТРА ИСХОДНОГО КОДА СТРАНИЦЫ МОЖНО ОБНАРУЖИТЬ ПОЛЕЗНЫЕ ДАННЫЕ НАПРИМЕР ЛОИГН\ПАРОЛЬ
+
+
+
+
+
+Oracle TNS
+Полезные инструменты и пакеты для взаимодействия:
+
+SavitskiyES@htb[/htb]$ sudo apt-get update
+sudo apt-get install -y build-essential python3-dev libaio1
+cd ~
+wget https://files.pythonhosted.org/packages/source/c/cx_Oracle/cx_Oracle-8.3.0.tar.gz
+tar xzf cx_Oracle-8.3.0.tar.gz
+cd cx_Oracle-8.3.0
+python3 setup.py build
+sudo python3 setup.py install
+cd ~
+git clone https://github.com/quentinhardy/odat.git
+cd odat/
+pip install python-libnmap
+git submodule init
+git submodule update
+sudo apt-get install python3-scapy -y
+sudo pip3 install colorlog termcolor passlib python-libnmap
+sudo apt-get install build-essential libgmp-dev -y
+pip3 install pycryptodome
+
+Тестирование ODAT (Oracle Database Attacking Tool)
+SavitskiyES@htb[/htb]$ ./odat.py -h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
